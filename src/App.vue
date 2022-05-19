@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AppHeader/>
+    <AppHeader @ax-data="getApiKey" />
   </div>
 </template>
 
@@ -9,7 +9,18 @@ import AppHeader from './components/AppHeader.vue';
 
 export default {
     name: "App",
-    components: { AppHeader }
+    components: { AppHeader },
+    data(){
+      return{
+        author:"eco",
+      }
+    },
+    methods: {
+      getApiKey(key){
+        console.log(key)
+        this.author = key
+      }
+    },
 }
 </script>
 
