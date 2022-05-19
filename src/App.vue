@@ -1,20 +1,23 @@
 <template>
   <div id="app">
     <AppHeader @ax-data="getApiKey" />
+    <AppMain :apiKey="author" :books= "books"/>
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader.vue';
 import axios from "axios"
+import AppMain from "./components/AppMain.vue"
 
 export default {
     name: "App",
-    components: { AppHeader },
+    components: { AppHeader, AppMain },
     data(){
       return{
         author:"eco",
-        apiUrl:"https://openlibrary.org/search.json?author="
+        apiUrl:"https://openlibrary.org/search.json?author=",
+        books: []
       }
     },
     methods: {
@@ -25,7 +28,10 @@ export default {
       },
       getApiData(){
         axios.get(this.apiUrl + this.author)
-        .then(r => console.log(r.data.docs))
+        .then(r =>{
+          this.books = r.data.docs
+          console.log(this.books)
+        })
       }
     },
     mounted() {
